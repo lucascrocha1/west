@@ -1,6 +1,7 @@
 namespace Cart.API
 {
     using Cart.API.Infrastructure.Repositories;
+    using Cart.API.Infrastructure.Services.User;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace Cart.API
             services.AddMediatR(typeof(Startup));
 
             services.AddTransient<ICartRepository, CartRepository>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddSwaggerGen(opts =>
             {
