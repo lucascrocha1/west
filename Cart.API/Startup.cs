@@ -26,6 +26,7 @@ namespace Cart.API
                 .AddNewtonsoftJson();
 
             services.AddMediatR(typeof(Startup));
+            services.AddHttpContextAccessor();
 
             services.AddTransient<ICartRepository, CartRepository>();
             services.AddTransient<IUserService, UserService>();
@@ -55,9 +56,10 @@ namespace Cart.API
                 {
                     var corsOrigins = Configuration.GetSection("CorsAllowedOrigins").Get<string[]>();
 
-                    policy.WithOrigins(corsOrigins)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
+                    if (corsOrigins != null)
+                        policy.WithOrigins(corsOrigins)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
                 });
             });
         }

@@ -6,3 +6,5 @@
 /.vs
 /Cart.API/bin/Debug/netcoreapp3.1
 /Cart.API/obj
+/Cart.FunctionalTests/bin/Debug/netcoreapp3.1
+/Cart.FunctionalTests/obj
