@@ -8,3 +8,7 @@
 /Cart.API/obj
 /Cart.Tests/bin/Debug/netcoreapp3.1
 /Cart.Tests/obj
+/EventBus/obj
+/EventBus/bin/Debug/netstandard2.0
+/EventBusRabbitMQ/obj
+/EventBusRabbitMQ/bin/Debug/netstandard2.0
