@@ -1,25 +1,39 @@
 ﻿namespace Cart.API.Controllers
 {
-    using Cart.API.Queries.GetCart;
-    using MediatR;
+    using Cart.API.Infrastructure.Repositories;
+    using Cart.API.Model;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
-    public class CartController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CartController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly ICartRepository _cartRepository;
 
-        public CartController(IMediator mediator)
+        public CartController(ICartRepository cartRepository)
         {
-            _mediator = mediator;
+            _cartRepository = cartRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCart(GetCartQuery query)
+        public async Task<IActionResult> GetCart(string customerId)
         {
-            var result = await _mediator.Send(query);
+            var result = await _cartRepository.GetCart(customerId);
 
-            return Json(result);
+            return new JsonResult(result);
+        }
+
+        [HttpPut]
+        public async Task UpdateCart([FromBody]CustomerCart cart)
+        {
+            await _cartRepository.UpdateCart(cart);
+        }
+
+        [HttpDelete]
+        public async Task DeleteCart(string customerId)
+        {
+            await _cartRepository.DeleteCart(customerId);
         }
     }
 }

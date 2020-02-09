@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.API", "Cart.API\Cart.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5A4A8081-B0A5-450A-BECD-D72E9A18AA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.FunctionalTests", "Cart.FunctionalTests\Cart.FunctionalTests.csproj", "{03445FE3-624A-46CB-80CD-4D6EDEA46FCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Tests", "Cart.Tests\Cart.Tests.csproj", "{03445FE3-624A-46CB-80CD-4D6EDEA46FCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

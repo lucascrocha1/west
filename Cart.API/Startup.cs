@@ -2,7 +2,6 @@ namespace Cart.API
 {
     using Cart.API.Infrastructure.Repositories;
     using Cart.API.Infrastructure.Services.User;
-    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -25,7 +24,6 @@ namespace Cart.API
             services.AddControllers()
                 .AddNewtonsoftJson();
 
-            services.AddMediatR(typeof(Startup));
             services.AddHttpContextAccessor();
 
             services.AddTransient<ICartRepository, CartRepository>();
@@ -73,15 +71,18 @@ namespace Cart.API
 
             app.UseCors();
 
-            app.UseSwagger()
-                .UseSwaggerUI(opts =>
-                {
-                    opts.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart API V1");
-                });
+            app.UseSwagger();
+
+            app.UseSwaggerUI(opts =>
+            {
+                opts.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart API V1");
+                opts.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "api/{controller}/{action}/{Id?}");
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

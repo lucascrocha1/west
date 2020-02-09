@@ -1,4 +1,4 @@
-﻿namespace Cart.FunctionalTests.Base
+﻿namespace Cart.Tests.Base
 {
     using Cart.API;
     using Microsoft.Extensions.Configuration;

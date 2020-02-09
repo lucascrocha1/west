@@ -1,4 +1,4 @@
-﻿namespace Cart.FunctionalTests.Base
+﻿namespace Cart.Tests.Base
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;

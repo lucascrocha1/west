@@ -6,4 +6,4 @@ services:
 script:
   - dotnet restore
   - dotnet build
-  - cd Cart.FunctionalTests && dotnet test
+  - cd Cart.Tests && dotnet test

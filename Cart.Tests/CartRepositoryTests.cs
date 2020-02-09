@@ -1,8 +1,8 @@
-﻿namespace Cart.FunctionalTests
+﻿namespace Cart.Tests
 {
     using Cart.API.Infrastructure.Repositories;
     using Cart.API.Model;
-    using Cart.FunctionalTests.Base;
+    using Cart.Tests.Base;
     using Microsoft.AspNetCore.TestHost;
     using Microsoft.Extensions.DependencyInjection;
     using StackExchange.Redis;
