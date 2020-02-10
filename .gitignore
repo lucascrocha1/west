@@ -12,3 +12,5 @@
 /EventBus/bin/Debug/netstandard2.0
 /EventBusRabbitMQ/obj
 /EventBusRabbitMQ/bin/Debug/netstandard2.0
+/WEST.React/obj
+/WEST.React/node_modules
