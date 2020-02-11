@@ -15,3 +15,5 @@
 /WEST.React/obj
 /WEST.React/node_modules
 /WEST.React/bin/Debug/netcoreapp3.1
+/Identity.API/bin/Debug/netcoreapp3.1
+/Identity.API/obj
