@@ -2,11 +2,13 @@
 {
     using Cart.API.Infrastructure.Repositories;
     using Cart.API.Model;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;

@@ -2,6 +2,7 @@ namespace Cart.API
 {
     using Cart.API.Infrastructure.Repositories;
     using Cart.API.Infrastructure.Services.User;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -48,6 +49,18 @@ namespace Cart.API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(opts =>
+            {
+                opts.Authority = Configuration["Auth:Authority"];
+                opts.RequireHttpsMetadata = false;
+                opts.Audience = Configuration["Auth:Audience"];
+            });
+
             services.AddCors(opts =>
             {
                 opts.AddDefaultPolicy(policy =>
@@ -70,6 +83,10 @@ namespace Cart.API
             app.UseRouting();
 
             app.UseCors();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseSwagger();
 
