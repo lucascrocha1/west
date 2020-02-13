@@ -1,4 +1,4 @@
-﻿namespace Identity.API.Services.Auth
+﻿namespace Identity.API.Infrastructure
 {
     using Identity.API.Model;
     using IdentityServer4.Models;

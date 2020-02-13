@@ -21,13 +21,8 @@
         public async Task Create(CreateUserDto userDto)
         {
             await _userManager.CreateAsync(
-                new ApplicationUser
-                {
-                    Email = userDto.Email,
-                    UserName = userDto.Email
-                },
-                userDto.Password
-            );
+                 new ApplicationUser { Email = userDto.Email, UserName = userDto.Email },
+                 userDto.Password);
         }
 
         public async Task Delete()
@@ -48,13 +43,18 @@
             await _userManager.UpdateAsync(applicationUser);
         }
 
-        public async Task<UserDto> Get()
+        public async Task<UserDto> GetCurrentUser()
         {
             var userId = GetCurrentUserId();
 
             var applicationUser = await _userManager.FindByIdAsync(userId);
 
             return MapApplicationUserToDto(applicationUser);
+        }
+
+        public async Task<ApplicationUser> GetApplicationUserByEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
 
         public string GetCurrentUserId()
@@ -64,6 +64,16 @@
                 .User?
                 .FindFirst(Constants.UserConstants.ClaimId)?
                 .Value;
+        }
+
+        public async Task<string> GeneratePasswordResetToken(ApplicationUser user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<string> GenerateConfirmEmailToken(ApplicationUser user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
         private ApplicationUser MapDtoToApplicationUser(UserDto user)

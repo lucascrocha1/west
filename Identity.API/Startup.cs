@@ -1,10 +1,8 @@
 namespace Identity.API
 {
     using Identity.API.Infrastructure;
-    using Identity.API.Model;
     using Identity.API.Services.Auth;
     using Identity.API.Services.User;
-    using IdentityServer4.Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -12,8 +10,6 @@ namespace Identity.API
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
-    using System;
-    using System.Reflection;
 
     public class Startup
     {
@@ -36,6 +32,8 @@ namespace Identity.API
             });
 
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
 
             services.AddSwaggerGen(opts =>
             {
