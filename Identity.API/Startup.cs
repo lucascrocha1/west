@@ -2,6 +2,7 @@ namespace Identity.API
 {
     using Identity.API.Infrastructure.Contexts;
     using Identity.API.Infrastructure.Services.Authentication;
+    using Identity.API.Infrastructure.Services.User;
     using Infrastructure.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace Identity.API
             services.AddControllersWithViews();
 
             services.AddTransient<ILoginService, LoginService>();
+
+            services.AddTransient<IUserService, UserService>();
 
             services.AddDbContext<IdentityContext>(opts =>
             {
