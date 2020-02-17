@@ -2,6 +2,7 @@ namespace Identity.API
 {
     using Identity.API.Infrastructure.Contexts;
     using Identity.API.Infrastructure.Services.Authentication;
+    using Identity.API.Infrastructure.Services.Email;
     using Identity.API.Infrastructure.Services.User;
     using Infrastructure.Authentication;
     using Microsoft.AspNetCore.Builder;
@@ -25,13 +26,17 @@ namespace Identity.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson();
 
             services.AddTransient<ILoginService, LoginService>();
 
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddDbContext<IdentityContext>(opts =>
             {
@@ -53,19 +58,34 @@ namespace Identity.API
                 });
             });
 
+            services.AddCors(opts =>
+            {
+                opts.AddDefaultPolicy(policy =>
+                {
+                    var corsOrigins = Configuration.GetSection("CorsAllowedOrigins").Get<string[]>();
+
+                    if (corsOrigins != null)
+                        policy.WithOrigins(corsOrigins)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                });
+            });
+
             services.AddAuthentication(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
+
+            app.UseCors();
 
             app.UseIdentityServer();
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseSwagger();
 

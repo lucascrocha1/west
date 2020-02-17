@@ -2,7 +2,6 @@
 {
     using Identity.API.Model;
     using Microsoft.AspNetCore.Identity;
-    using System;
     using System.Threading.Tasks;
 
     public class UserService : IUserService
@@ -27,6 +26,31 @@
         public async Task<string> GeneratePasswordResetToken(ApplicationUser user)
         {
             return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<ApplicationUser> FindByEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<ApplicationUser> FindById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
+        public async Task ConfirmEmail(ApplicationUser user, string token)
+        {
+            await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task ResetPassword(ApplicationUser user, string newPassword, string token)
+        {
+            await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
+        public async Task DeleteUser(ApplicationUser user)
+        {
+            await _userManager.DeleteAsync(user);
         }
     }
 }

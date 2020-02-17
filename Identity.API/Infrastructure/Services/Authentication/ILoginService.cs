@@ -8,7 +8,7 @@
     {
         Task<bool> ValidateCredentials(ApplicationUser user, string password);
 
-        Task<ApplicationUser> FindByEmail(string email);
+        AuthenticationProperties GetAuthenticationProperties(LoginDto loginDto);
 
         Task SignIn(ApplicationUser user, AuthenticationProperties properties, string authenticationMethod = null);
     }

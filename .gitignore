@@ -17,3 +17,5 @@
 /WEST.React/bin/Debug/netcoreapp3.1
 /Identity.API/bin/Debug/netcoreapp3.1
 /Identity.API/obj
+/Identity.Tests/bin/Debug/netcoreapp3.1
+/Identity.Tests/obj

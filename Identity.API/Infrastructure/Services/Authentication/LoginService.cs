@@ -3,22 +3,43 @@
     using Identity.API.Model;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
+    using System;
     using System.Threading.Tasks;
 
     public class LoginService : ILoginService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public LoginService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public LoginService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
-        public async Task<ApplicationUser> FindByEmail(string email)
+        public AuthenticationProperties GetAuthenticationProperties(LoginDto loginDto)
         {
-            return await _userManager.FindByEmailAsync(email);
+            var tokenLifetime = _configuration.GetValue("TokenLifetime", 120);
+
+            var props = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(tokenLifetime),
+                AllowRefresh = true,
+                RedirectUri = _configuration["LoginRedirectUrl"]
+            };
+
+            if (loginDto.RememberMe)
+            {
+                var permanentLifetimeToken = _configuration.GetValue("PermanentTokeLifetime", 365);
+
+                props.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(permanentLifetimeToken);
+                props.IsPersistent = true;
+            }
+
+            return props;
         }
 
         public async Task SignIn(ApplicationUser user, AuthenticationProperties properties, string authenticationMethod = null)
