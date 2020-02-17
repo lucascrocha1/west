@@ -5,4 +5,8 @@
       <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="src\base\" />
+  </ItemGroup>
+
 </Project>

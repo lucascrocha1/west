@@ -7,4 +7,4 @@ script:
   - dotnet restore
   - dotnet build
   - cd Cart.Tests && dotnet test
-  - cd Identity.Tests && dotnet test
+  - cd ../Identity.Tests && dotnet test

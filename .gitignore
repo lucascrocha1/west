@@ -19,3 +19,4 @@
 /Identity.API/obj
 /Identity.Tests/bin/Debug/netcoreapp3.1
 /Identity.Tests/obj
+/WEST.React/src/env/env.js
